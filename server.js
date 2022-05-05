@@ -10,17 +10,9 @@ app.use(cors());
 const database = {
   users: [
     {
-      id: '1',
-      name: 'John',
-      email: 'john@gmail.com',
-      password: 'password',
-      entries: 0,
-      joined: new Date(),
-    },
-    {
-      id: '2',
-      name: 'Jane',
-      email: 'jane@gmail.com',
+      id: '0',
+      name: 'example',
+      email: 'example@gmail.com',
       password: 'password',
       entries: 0,
       joined: new Date(),
