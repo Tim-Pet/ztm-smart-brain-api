@@ -1,9 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
+import cors from 'cors';
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
   users: [
@@ -29,7 +31,7 @@ const database = {
 const saltRounds = 10;
 
 app.get('/', (req, res) => {
-  res.json('this is working');
+  res.json('You accessed the root route');
 });
 
 app.post('/signin', (req, res) => {
@@ -45,7 +47,6 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
   const { email, name, password } = req.body;
-  let passwordHash = '';
 
   const user = database.users.find(
     (user) => user.email === email || user.name === name
@@ -85,6 +86,6 @@ app.put('/image', (req, res) => {
   res.status(404).json('user not found');
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(3001, () => {
+  console.log('Server is running on port 3001');
 });
