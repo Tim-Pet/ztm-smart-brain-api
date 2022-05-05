@@ -1,5 +1,6 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,39 +26,46 @@ const database = {
   ],
 };
 
+const saltRounds = 10;
+
 app.get('/', (req, res) => {
   res.json('this is working');
 });
 
 app.post('/signin', (req, res) => {
   const { email, password } = req.body;
-  const user = database.users.find(
-    (user) => user.email === email && user.password === password
-  );
+  const user = database.users.find((user) => user.email === email);
+  if (!user) return res.status(404).json('error logging in. User not found');
 
-  if (user) return res.status(200).json(user);
-  res.status(404).json('error logging in. User not found');
+  bcrypt.compare(password, user.password, (err, result) => {
+    if (result) return res.status(200).json(user);
+    return res.status(400).json('error logging in. Password incorrect');
+  });
 });
 
 app.post('/register', (req, res) => {
   const { email, name, password } = req.body;
+  let passwordHash = '';
+
   const user = database.users.find(
     (user) => user.email === email || user.name === name
   );
   if (user) return res.status(400).json('email or name already exists');
 
-  const newUser = {
-    id: database.users.length + 1,
-    name,
-    email,
-    password,
-    entries: 0,
-    joined: new Date(),
-  };
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    const newUser = {
+      id: database.users.length + 1,
+      name,
+      email,
+      password: hash,
+      entries: 0,
+      joined: new Date(),
+    };
 
-  database.users.push(newUser);
+    database.users.push(newUser);
 
-  res.status(200).json(newUser);
+    res.status(200).json(newUser);
+  });
 });
 
 app.get('/profile/:userId', (req, res) => {
