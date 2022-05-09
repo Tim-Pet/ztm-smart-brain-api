@@ -2,6 +2,17 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import cors from 'cors';
+import knex from 'knex';
+
+const db = knex({
+  client: 'pg',
+  connection: {
+    host: '127.0.0.1',
+    user: 'tim',
+    password: '',
+    database: 'ztm-smart-brain',
+  },
+});
 
 const app = express();
 app.use(bodyParser.json());
