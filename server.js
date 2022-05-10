@@ -79,21 +79,6 @@ app.post('/register', (req, res) => {
         res.status(400).json('error registering user');
       });
   });
-
-  // bcrypt.hash(password, saltRounds, (err, hash) => {
-  //   const newUser = {
-  //     id: database.users.length + 1,
-  //     name,
-  //     email,
-  //     password: hash,
-  //     entries: 0,
-  //     joined: new Date(),
-  //   };
-
-  //   database.users.push(newUser);
-
-  //   res.status(200).json(newUser);
-  // });
 });
 
 app.get('/profile/:userId', (req, res) => {
