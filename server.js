@@ -6,7 +6,7 @@ import knex from 'knex';
 
 import { handleRegister } from './controllers/register.js';
 import { handleSignin } from './controllers/signin.js';
-import { handleImagePost } from './controllers/image.js';
+import { handleImagePost, handleApiCall } from './controllers/image.js';
 import { handleGetProfile } from './controllers/profile.js';
 
 const db = knex({
@@ -31,6 +31,7 @@ app.post('/register', (req, res) =>
 );
 app.get('/profile/:userId', (req, res) => handleGetProfile(req, res, db));
 app.put('/image', (req, res) => handleImagePost(req, res, db));
+app.post('/imageurl', (req, res) => handleApiCall(req, res));
 
 app.listen(3001, () => {
   console.log('Server is running on port 3001');

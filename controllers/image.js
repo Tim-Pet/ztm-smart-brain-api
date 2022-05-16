@@ -1,3 +1,19 @@
+import Clarifai from 'clarifai';
+
+const app = new Clarifai.App({
+  apiKey: 'b6cd2b615d4c49e6b991dec3f7754ba1',
+});
+
+const handleApiCall = (req, res) => {
+  // const { imageUrl } = req.body;
+  app.models
+    .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).json('unable to work with API', err));
+};
+
 const handleImagePost = (req, res, db) => {
   const { id } = req.body;
   db('users')
@@ -12,4 +28,4 @@ const handleImagePost = (req, res, db) => {
     });
 };
 
-export { handleImagePost };
+export { handleApiCall, handleImagePost };
