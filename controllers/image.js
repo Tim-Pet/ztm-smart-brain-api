@@ -12,4 +12,4 @@ const handleImagePost = (req, res, db) => {
     });
 };
 
-export default handleImagePost;
+export { handleImagePost };

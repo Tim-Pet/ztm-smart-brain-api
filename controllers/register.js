@@ -30,4 +30,4 @@ const handleRegister = (req, res, db, bcrypt, saltRounds) => {
   });
 };
 
-export default handleRegister;
+export { handleRegister };

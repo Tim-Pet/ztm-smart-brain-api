@@ -27,4 +27,4 @@ const handleSignin = (req, res, db, bcrypt) => {
     });
 };
 
-export default handleSignin;
+export { handleSignin };
