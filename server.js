@@ -19,8 +19,11 @@ const db = knex({
 });
 
 const app = express();
-app.options('*', cors());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+);
 app.use(express.json());
 
 const saltRounds = 10;
