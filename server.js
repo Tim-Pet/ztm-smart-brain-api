@@ -9,6 +9,8 @@ import { handleSignin } from './controllers/signin.js';
 import { handleImagePost, handleApiCall } from './controllers/image.js';
 import { handleGetProfile } from './controllers/profile.js';
 
+const PORT = process.env.PORT || 3001;
+
 const db = knex({
   client: 'pg',
   connection: {
@@ -33,6 +35,6 @@ app.get('/profile/:userId', (req, res) => handleGetProfile(req, res, db));
 app.put('/image', (req, res) => handleImagePost(req, res, db));
 app.post('/imageurl', (req, res) => handleApiCall(req, res));
 
-app.listen(3001, () => {
-  console.log('Server is running on port 3001');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
