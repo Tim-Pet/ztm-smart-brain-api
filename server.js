@@ -10,13 +10,14 @@ import { handleGetProfile } from './controllers/profile.js';
 
 const PORT = process.env.PORT || 3001;
 
-const db = knex({
-  client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  },
-});
+const db = null;
+// = knex({
+//   client: 'pg',
+//   connection: {
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: true,
+//   },
+// });
 
 const app = express();
 app.use(
