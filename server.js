@@ -9,15 +9,15 @@ import { handleImagePost, handleApiCall } from './controllers/image.js';
 import { handleGetProfile } from './controllers/profile.js';
 
 const PORT = process.env.PORT || 3001;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
-const db = null;
-// = knex({
-//   client: 'pg',
-//   connection: {
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-//   },
-// });
+const db = knex({
+  client: 'pg',
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  },
+});
 
 const app = express();
 app.use(
