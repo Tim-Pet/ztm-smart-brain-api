@@ -9,6 +9,7 @@ import { handleImagePost, handleApiCall } from './controllers/image.js';
 import { handleGetProfile } from './controllers/profile.js';
 
 const PORT = process.env.PORT || 3001;
+// This is not production safe. Used only due to heroku free plan.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 const db = knex({
