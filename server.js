@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
 import cors from 'cors';
 import knex from 'knex';
@@ -20,8 +19,8 @@ const db = knex({
 });
 
 const app = express();
-app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
 
 const saltRounds = 10;
 app.get('/', (req, res) => {
