@@ -26,7 +26,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const saltRounds = 10;
-
+app.get('/', (req, res) => {
+  res.status(200).send('It is working');
+});
 app.post('/signin', (req, res) => handleSignin(req, res, db, bcrypt));
 app.post('/register', (req, res) =>
   handleRegister(req, res, db, bcrypt, saltRounds)
