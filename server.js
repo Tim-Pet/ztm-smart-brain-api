@@ -1,7 +1,8 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import cors from 'cors';
 import knex from 'knex';
+import morgan from 'morgan';
 
 import { handleRegister } from './controllers/register.js';
 import { handleSignin } from './controllers/signin.js';
@@ -14,13 +15,11 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
 const db = knex({
   client: 'pg',
-  connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: true,
-  },
+  connection: process.env.POSTGRES_URI,
 });
 
 const app = express();
+app.use(morgan('combined'));
 app.use(
   cors({
     origin: '*',
