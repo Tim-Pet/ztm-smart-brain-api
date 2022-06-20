@@ -1,28 +1,29 @@
-version: '3.6'
-
+version: '3.8'
 services:
-  # Backend API
-  ztm-smart-brain-api:
-    container_name: backend
+  # PostgreSQL
+  postgres:
+    container_name: postgres
+    build: ./postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_URL: postgres://admin:password@localhost:5432/smart-brain
+      POSTGRES_DB: smart-brain
+      POSTGRES_HOST: postgres
+    ports:
+      - '5432:5432'
+
+  # Backend
+  smart-brain-api:
+    # env_file:
+    #   - ./.private/api-keys.env "Another way to insert env variables"
+    container_name: api-backend
     build: ./
+    volumes:
+      - ./:/usr/src/smart-brain-api
     command: npm start
-    working_dir: /usr/src/ztm-smart-brain-api
+    working_dir: /usr/src/smart-brain-api
     ports:
       - '3001:3001'
     environment:
-      - 'POSTGRES_URI=postgres://sally:secret@postgres:5432/smart-brain-docker'
-    links:
-      - postgres
-    volumes:
-      - ./:/usr/src/ztm-smart-brain-api
-
-  # Postgres
-  postgres:
-    image: postgres
-    environment:
-      - 'POSTGRES_USER=sally'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_DB=smart-brain-docker'
-      - 'POSTGRES_HOST=postgres'
-    ports:
-      - '5432:5432'
+      POSTGRES_URI: postgres://admin:password@postgres:5432/smart-brain
