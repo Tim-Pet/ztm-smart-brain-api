@@ -19,7 +19,7 @@ const db = knex({
 });
 
 const app = express();
-const whitelist = ['http://localhost:3001'];
+const whitelist = ['http://localhost:3001', 'http://localhost:3000'];
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
